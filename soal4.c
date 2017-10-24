@@ -5,7 +5,7 @@
 #include<unistd.h>
 #include<stdlib.h>
 typedef long long int ll;
-pthread_t tid[5];
+pthread_t tid[3];
 ll a,b,c;
 void* counta(void *argv){
     ll num=1;
@@ -19,7 +19,7 @@ void* countb(void *argv){
     printf("Hasil %lld! = %lld\n",b,num);
     return NULL;
 }
-void* countb(void *argv){
+void* countc(void *argv){
     ll num=1;
     for(ll i=2;i<=c;i++) num*=i;
     printf("Hasil %lld! = %lld\n",c,num);
@@ -27,5 +27,11 @@ void* countb(void *argv){
 }
 int main(){
     scanf("%lld %lld %lld",&a,&b,&c);
-    pthread_create(&(tid[0]),NULL,&count1,NULL);
+    pthread_create(&(tid[0]),NULL,&counta,NULL);
+    pthread_create(&(tid[1]),NULL,&countb,NULL);
+    pthread_create(&(tid[2]),NULL,&countc,NULL);
+
+    pthread_join(tid[0],NULL);
+    pthread_join(tid[1],NULL);
+    pthread_join(tid[2],NULL);
 }
