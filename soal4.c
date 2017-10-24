@@ -10,7 +10,13 @@ ll a,b,c;
 void* counta(void *argv){
     ll num=1;
     for(ll i=2;i<=a;i++) num*=i;
-    printf("Hasil %lld! = %lld\n",a);
+    printf("Hasil %lld! = %lld\n",a,num);
+    return NULL;
+}
+void* countb(void *argv){
+    ll num=1;
+    for(ll i=2;i<=b;i++) num*=i;
+    printf("Hasil %lld! = %lld\n",b,num);
     return NULL;
 }
 int main(){
