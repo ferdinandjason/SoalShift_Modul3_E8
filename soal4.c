@@ -5,33 +5,21 @@
 #include<unistd.h>
 #include<stdlib.h>
 typedef long long int ll;
-pthread_t tid[3];
-ll a,b,c;
-void* counta(void *argv){
+
+void* counting(void *argv){
+    ll a=strtol((char *)argv,NULL,10);
     ll num=1;
     for(ll i=2;i<=a;i++) num*=i;
     printf("Hasil %lld! = %lld\n",a,num);
     return NULL;
 }
-void* countb(void *argv){
-    ll num=1;
-    for(ll i=2;i<=b;i++) num*=i;
-    printf("Hasil %lld! = %lld\n",b,num);
-    return NULL;
-}
-void* countc(void *argv){
-    ll num=1;
-    for(ll i=2;i<=c;i++) num*=i;
-    printf("Hasil %lld! = %lld\n",c,num);
-    return NULL;
-}
-int main(){
-    scanf("%lld %lld %lld",&a,&b,&c);
-    pthread_create(&(tid[0]),NULL,&counta,NULL);
-    pthread_create(&(tid[1]),NULL,&countb,NULL);
-    pthread_create(&(tid[2]),NULL,&countc,NULL);
 
-    pthread_join(tid[0],NULL);
-    pthread_join(tid[1],NULL);
-    pthread_join(tid[2],NULL);
+int main(int argc,char *argv[]){
+    pthread_t tid[argc-1];
+    for(int i=0;i<argc-1;i++){
+        pthread_create(&(tid[i]),NULL,&counting,(void *)argv[i+1]);
+    }
+    for(int i=0;i<argc-1;i++){
+        pthread_join(tid[i],NULL);
+    }
 }
