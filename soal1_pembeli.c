@@ -16,9 +16,7 @@ void* pembeli(void *arg){
     int shmid = shmget(pointer,6*sizeof(int),IPC_CREAT | 0666);
     stok = shmat(shmid,NULL,0);
     for(int i=0;i<6;i++){
-        if(*(stok+i)>0){
-            printf("Jumlah %s di stock = %d barang\n",s[i],*(stok+i));
-        }
+        printf("Jumlah %s di stock = %d barang\n",s[i],*(stok+i));
     }
     getchar();
 }
@@ -31,8 +29,11 @@ void* pembeli2(void *arg){
     char *input=(char*)arg;
     for(i=0;i<6;i++){
         //printf("%s %s : %d\n",input,s[i],strcmp(input,s[i]));
-        if(strcmp(input,s[i])==0){
+        if(strcmp(input,s[i])==0 && *(stok+i)>=hehe){
             *(stok+i)-=hehe;
+        }
+        else if(strcmp(input,s[i])==0 ){
+            printf("“barang di stock tidak cukup\n");        
         }
     }
 }
@@ -40,7 +41,7 @@ void* pembeli2(void *arg){
 int main(){
     pthread_t tid;
     while(1){
-        system("clear");
+        //system("clear");
         printf("1. Lihat Stock Senjata\n");
         printf("2. Beli Senjata\n");
         printf("Pilih : ");

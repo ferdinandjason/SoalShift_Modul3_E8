@@ -47,7 +47,7 @@ int main(){
         *(stoks+id)=0;
     }
     while(1){
-        system("clear");
+        //system("clear");
         printf("1. Lihat Stock Senjata\n");
         printf("2. Tambah Stock Senjata\n");
         printf("Pilih : ");
